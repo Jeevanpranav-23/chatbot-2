@@ -69,7 +69,7 @@ class OptimizeRequest(BaseModel):
 async def generate_code_with_ai(prompt: str, language: str, request_type: str, code_input: Optional[str] = None) -> Dict[str, str]:
     """Generate code using OpenAI GPT"""
     try:
-        if not openai.api_key:
+        if not client:
             # Fallback templates when no API key
             return await get_template_code(prompt, language, request_type)
         
@@ -96,7 +96,7 @@ async def generate_code_with_ai(prompt: str, language: str, request_type: str, c
         if code_input:
             user_message = f"{prompt}\n\nCode to work with:\n```{language}\n{code_input}\n```"
         
-        response = await openai.ChatCompletion.acreate(
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {"role": "system", "content": system_prompt},
