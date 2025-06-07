@@ -97,7 +97,7 @@ async def generate_code_with_ai(prompt: str, language: str, request_type: str, c
             user_message = f"{prompt}\n\nCode to work with:\n```{language}\n{code_input}\n```"
         
         response = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_message}
