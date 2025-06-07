@@ -23,7 +23,8 @@ client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
 # OpenAI configuration
-openai.api_key = os.environ.get('OPENAI_API_KEY', '')
+openai_api_key = os.environ.get('OPENAI_API_KEY', '')
+client = OpenAI(api_key=openai_api_key) if openai_api_key else None
 
 # Create the main app without a prefix
 app = FastAPI(title="CodeCraft API", description="AI-powered code generation and debugging platform")
